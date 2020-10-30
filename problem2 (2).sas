@@ -1,12 +1,22 @@
-data TransferCost;
-INPUT  name $1-14. from $16-26. to $28-37. pounds_million 38-43;
-datalines;
-Benjamin Mendy Monaco      Man City   52.0
-Alvaro Morata  Real Madrid Chelsea    58.0
-Romelu Lukaku  Everton     Man United 75.0
-Neymar         Barcelona   PSG        199.8
-;
-run;
-proc print data=TransferCost;
-	var name from to pounds_million;
-run;
+FILENAME car '/folders/myfolders/car final project-new.txt';
+
+
+/*  The COMPARE procedure compares the contents of two datasets (DataSet1 and DataSet2). 
+	It can also compare selected variables in different data sets, or variables within the same data set */
+
+DATA DataSet1;
+	INFILE car firstobs = 2 obs=61; 
+	INPUT car $1-32 Weight Disp Mileage Fuel Type $;     
+RUN;
+
+
+
+DATA DataSet2;
+	INFILE car firstobs = 31; 
+	INPUT car $1-32 Weight Disp Mileage Fuel Type $;     
+RUN;
+
+
+PROC compare base= DataSet1
+	compare = DataSet2;
+RUN;
